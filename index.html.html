@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="index.js"></script>
+    <title>Rent Calculator</title>
+</head>
+
+<body>
+    <form>
+        <fieldset>
+            <legend>Effective Rent Calculator</legend>
+            Monthly Rent<input id="mr" type="number" onchange="efr()" value=""><br>
+            Income Tax slab <select id="tx" onchange="efr()">
+                <option value="0">0%</option>
+                <option value="5">5%</option>
+                <option value="10">10%</option>
+                <option value="15">15%</option>
+                <option value="20">20%</option>
+                <option value="25">25%</option>
+                <option value="30">30%</option>
+            </select>
+            <div id="r">
+            </div>
+        </fieldset>
+        <br>
+        <br>
+        <fieldset>
+            <legend>Total Rent Calculator</legend>
+            Increment%<input id="ic" type="number" onchange="tr(3)"><br>
+            Years<input id="y" type="number" onchange="tr(3)"><br>
+            <div id="tr">
+            </div>
+        </fieldset>
+        <br>
+        <br>
+        <fieldset>
+            <legend>Loan Amount Calculator</legend>
+            Cost of the Property<input id="co" type="number" onchange="la()"><br>
+            Down Payement%<input id="dpp" type="number" onchange="la()"><br>
+            <div id="da">
+            </div><br>
+            Interest%<input id="int" type="number" onchange="interest()"><br>
+            <div id="loan">
+            </div>
+        </fieldset>
+        Estimate rate of return of investment(in %)
+        <input id="ri" type="number" onchange="hrc()"><br>
+        Estimate rate of Increase in property value(in %)
+        <input id="pv" type="number" onchange="lrc()"><br>
+        <div id="hrcd"></div>
+        <br>
+        <div id="lrcd"></div>
+    </form><br>
+    <br>
+    <div id="decison"></div>
+</body>
+
+</html>
