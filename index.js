@@ -155,10 +155,6 @@ function interest(a) {
     o = document.getElementById("loan");
     o.innerHTML = "Loan period is assumed to be " + y + " years<br>";
     ir = loip;
-    if (!c || !dpa) {
-        alert("First calculate loan amount")
-        return;
-    }
     pv = c - dpa;
     pmt = PMT(ir, y, pv).toFixed(2);
     console.log(pv);
