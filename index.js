@@ -199,7 +199,7 @@ function hrc(a) {
         i + ` as emi amount ` + `so your net gain will be ` + (h + i);
     localStorage["rg"] = h + i;
     rg = localStorage["rg"];
-    des();
+    lrc(1);
 }
 function lrc(a) {
     const ppra = document.getElementById("pv").value;
@@ -221,11 +221,11 @@ function des() {
     if (!lg || !rg)
         return;
     o = document.getElementById("decison");
-    if (rg > lg) {
+    if (parseInt(rg) > parseInt(lg)) {
         o.innerHTML = "Renting a property would be a better option as you will gain " + (rg - lg) + `
         compared to buying the property`;
     }
-    else if (lg > rg) {
+    else if (parseInt(lg) > parseInt(rg)) {
         o.innerHTML = "Buying a property would be a better option as you will gain " + (lg - rg) + `
         compared to renting the property`;
     }
