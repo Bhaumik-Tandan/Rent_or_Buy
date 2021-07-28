@@ -193,7 +193,7 @@ function hrc(a) {
     o.innerHTML += `<br>If we assume the rate of growth to be ` + roi + `% then you will save `
         + h + ` as downpayement amount and ` +
         i + ` as emi amount ` + `so your net gain will be ` + (h + i - localStorage["tr"] + er * 12 * y);
-    localStorage["rg"] = h + i;
+    localStorage["rg"] = h + i - localStorage["tr"] + er * 12 * y;
     rg = localStorage["rg"];
     lrc(1);
 }
