@@ -5,16 +5,17 @@ var roi, pra, ipaid;
 var rg, lg;
 
 function addCoama(a) {
+    a = parseFloat(a).toFixed(2);
     a = String(a);
     let ind = a.indexOf(".");
-    if (ind == -1)
-        ind = a.length;
-    let i = a.slice(0, ind);
-    if (i.length < 4)
-        return "₹" + parseFloat(a).toFixed(2);
-    let s = a.slice(0, i.length - 3) + "," + a.slice(i.length - 3, i.length);
-    return "₹" + s;
-    //if (i.length < 6)
+    if (a.length < 7)
+        return "₹" + a;
+    let abc = "," + a.slice(ind - 3, a.length);
+    let j = ind - 3;
+    for (; j > 2; j -= 2) {
+        abc = "," + a.slice(j - 2, j) + abc;
+    }
+    return "₹" + a.slice(0, j) + abc;
 }
 window.addEventListener("load", function () {
     if (localStorage["er"]) {
@@ -36,7 +37,7 @@ window.addEventListener("load", function () {
         rt = localStorage["tr"];
         document.getElementById("ic").value = i;
         document.getElementById("y").value = y;
-        document.getElementById("tr").innerHTML = "Total Rent For the period: " + rt;
+        document.getElementById("tr").innerHTML = "Total Rent: " + addCoama(rt);
         document.getElementById("ico").innerHTML = i + "%";
     }
     if (localStorage["c"]) {
@@ -45,7 +46,7 @@ window.addEventListener("load", function () {
         dpa = localStorage["dpa"];
         document.getElementById("co").value = c;
         document.getElementById("dpp").value = dpp;
-        document.getElementById("da").innerHTML = "Downpayment amount: " + dpa + "<br>Loan amount: " + (c - dpa);
+        document.getElementById("da").innerHTML = "Downpayment amount: " + addCoama(dpa) + "<br>Loan amount: " + addCoama(c - dpa);
     }
     if (localStorage["loip"]) {
         loip = localStorage["loip"];
@@ -55,11 +56,11 @@ window.addEventListener("load", function () {
         ipaid = localStorage["ipaid"];
         document.getElementById("int").value = loip;
         document.getElementById("loan").innerHTML = "Loan period is assumed to be " + y + " years<br>";
-        document.getElementById("loan").innerHTML += "EMI: " + emi;
+        document.getElementById("loan").innerHTML += "EMI: " + addCoama(emi);
         document.getElementById("loan").innerHTML += "<br>Your Income Tax Slab is: " + document.getElementById("tx").value + "%";
         document.getElementById("loan").innerHTML += "<br>Effective interest: " + eil.toFixed(2) + "%";
-        document.getElementById("loan").innerHTML += "<br>Effective EMI: " + efemi;
-        document.getElementById("loan").innerHTML += "<br><br>Interest Paid: " + (efemi * y * 12 - (c - dpa));
+        document.getElementById("loan").innerHTML += "<br>Effective EMI: " + addCoama(efemi);
+        document.getElementById("loan").innerHTML += "<br><br>Interest Paid: " + addCoama(efemi * y * 12 - (c - dpa));
     }
     if (localStorage["roi"]) {
         roi = localStorage["roi"];
@@ -129,7 +130,7 @@ function tr(a) {
     localStorage["tr"] = tr;
     document.getElementById("tr").innerHTML = "";
     document.getElementById("ico").innerHTML = i + "%";
-    document.getElementById("tr").innerHTML = "Total Rent For the period: " + tr;
+    document.getElementById("tr").innerHTML = "Total Rent: " + addCoama(tr);
     la();
     hrc(1);
 }
@@ -147,7 +148,7 @@ function la() {
     localStorage["dpp"] = dpp;
     dpa = c - c * (1 - dpp / 100.0)
     localStorage["dpa"] = dpa;
-    document.getElementById("da").innerHTML = "Downpayment amount: " + dpa + "<br>Loan amount: " + (c - dpa);
+    document.getElementById("da").innerHTML = "Downpayment amount: " + addCoama(dpa) + "<br>Loan amount: " + addCoama(c - dpa);
     interest(1);
 }
 
@@ -188,10 +189,10 @@ function interest(a) {
     o.innerHTML += "<br>Effective interest: " + eil.toFixed(2) + "%";
     efemi = PMT(eil, y, pv)
     localStorage["efemi"] = efemi;
-    o.innerHTML += "<br>Effective EMI: " + efemi;
+    o.innerHTML += "<br>Effective EMI: " + addCoama(efemi);
     ipaid = (efemi * y * 12 - pv);
     localStorage["ipaid"] = ipaid;
-    o.innerHTML += "<br><br>Interest Paid: " + (efemi * y * 12 - pv);
+    o.innerHTML += "<br><br>Interest Paid: " + addCoama(efemi * y * 12 - pv);
     hrc(1);
     lrc(1);
 }
@@ -208,11 +209,11 @@ function hrc(a) {
     o = document.getElementById("hrcd");
     const h = (dpa * Math.pow(((400 + parseInt(roi)) / (400)), y * 4));
     const i = PMT(parseInt(roi), parseInt(y), parseInt(efemi - er) * 12 * 15) * y * 12;
-    o.innerHTML = `If you will rent a house<br> Downpayment amount of ` + dpa + `
-     and mothly expenditure of `+ (efemi - er) + ` will be saved`;
+    o.innerHTML = `If you will rent a house<br> Downpayment amount of ` + addCoama(dpa) + `
+     and monthly expenditure of `+ addCoama(efemi - er) + ` will be saved`;
     o.innerHTML += `<br>If we assume the rate of growth to be ` + roi + `% then you will save `
         + h + ` as downpayement amount and ` +
-        i + ` as emi amount ` + `so your net gain will be ` + (h + i - localStorage["tr"] + er * 12 * y);
+        i + ` as emi amount ` + `so your net gain will be ` + addCoama(h + i - localStorage["tr"] + er * 12 * y);
     localStorage["rg"] = h + i - localStorage["tr"] + er * 12 * y;
     rg = localStorage["rg"];
     lrc(1);
@@ -227,8 +228,8 @@ function lrc(a) {
     localStorage["pra"] = pra;
     o = document.getElementById("lrcd");
     o.innerHTML = `If we assume the raise in property cost to be ` + pra + "% then after " + y + `
-     years your property will be valued at `+ c * Math.pow(1 + (pra / 100), y) + `
-     So your net gain will be `+ (((parseInt(c)) * Math.pow(1 + (pra / 100.0), y)) - c - ipaid);
+     years your property will be valued at `+ addCoama(c * Math.pow(1 + (pra / 100), y)) + `
+     So your net gain will be `+ addCoama(((parseInt(c)) * Math.pow(1 + (pra / 100.0), y)) - c - ipaid);
     localStorage["lg"] = (((parseInt(c)) * Math.pow(1 + (pra / 100.0), y)) - c - ipaid);
     lg = localStorage["lg"];
     des();
@@ -238,11 +239,11 @@ function des() {
         return;
     o = document.getElementById("decison");
     if (parseInt(rg) > parseInt(lg)) {
-        o.innerHTML = "Renting a property would be a better option as you will gain " + (rg - lg) + `
+        o.innerHTML = "Renting a property would be a better option as you will gain " + addCoama(rg - lg) + `
         compared to buying the property`;
     }
     else if (parseInt(lg) > parseInt(rg)) {
-        o.innerHTML = "Buying a property would be a better option as you will gain " + (lg - rg) + `
+        o.innerHTML = "Buying a property would be a better option as you will gain " + addCoama(lg - rg) + `
         compared to renting the property`;
     }
     else {
