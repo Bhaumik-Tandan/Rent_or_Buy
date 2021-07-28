@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="index.js"></script>
     <title>Rent Calculator</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
     <form>
-        <fieldset>
+        <fieldset id="erc">
             <legend>Effective Rent Calculator</legend>
             Monthly Rent<input id="mr" type="number" onchange="efr()" value=""><br>
             Income Tax slab <select id="tx" onchange="efr()">
@@ -28,7 +29,7 @@
         </fieldset>
         <br>
         <br>
-        <fieldset>
+        <fieldset id="trc">
             <legend>Total Rent Calculator</legend>
             Increment%<input id="ic" type="number" onchange="tr(3)"><br>
             Years<input id="y" type="number" onchange="tr(3)"><br>

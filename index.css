@@ -1,0 +1,10 @@
+fieldset{
+  width: fit-content;
+}
+@media screen and (max-width: 1024px) {
+    p {
+        background-color: red;
+        color: red;
+        text-transform: uppercase;
+    }
+}
