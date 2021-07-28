@@ -1,10 +1,37 @@
+body{
+  background-color: aqua;
+  color: red;
+}
 fieldset{
   width: fit-content;
+  text-align: center;
 }
-@media screen and (max-width: 1024px) {
-    p {
-        background-color: red;
-        color: red;
-        text-transform: uppercase;
+
+select
+{
+  background-color: blue;
+  color: white;
+}
+@media screen and (min-width: 1000px) {
+    #erc
+    {
+      position: absolute;
+      top:3%;
+      left: 12%;
     }
+    #trc
+    {
+      position: absolute;
+      top:4%;
+      left: 57%;
+    }
+
+    #lac
+    {
+      position: absolute;
+      top:30%;
+      left: 10%;
+      width: 75%;
+    }
+
 }

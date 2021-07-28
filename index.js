@@ -3,15 +3,32 @@ var dpp, c, dpa;
 var loip, emi, eil, efemi;
 var roi, pra, ipaid;
 var rg, lg;
+
+function addCoama(a) {
+    a = String(a);
+    let ind = a.indexOf(".");
+    if (ind == -1)
+        ind = a.length;
+    let i = a.slice(0, ind);
+    if (i.length < 4)
+        return "₹" + parseFloat(a).toFixed(2);
+    let s = a.slice(0, i.length - 3) + "," + a.slice(i.length - 3, i.length);
+    return "₹" + s;
+    //if (i.length < 6)
+}
 window.addEventListener("load", function () {
     if (localStorage["er"]) {
         er = localStorage["er"];
         ar = localStorage["ar"];
-        document.getElementById("r").innerHTML = "Effective Rent: " + er + "<br>Annual Rent: " + ar;
+        document.getElementById("r").innerHTML = "<br>Effective Rent: " + addCoama(er) + "<br>Annual Rent: " + addCoama(ar);
         tx = localStorage["tx"]
         mr = localStorage["mr"]
         document.getElementById("tx").value = tx;
         document.getElementById("mr").value = mr;
+        document.getElementById("mro").value = addCoama(mr);
+    }
+    else {
+        document.getElementById("mro").value = addCoama(0);
     }
     if (localStorage["i"]) {
         i = localStorage["i"];
@@ -20,6 +37,7 @@ window.addEventListener("load", function () {
         document.getElementById("ic").value = i;
         document.getElementById("y").value = y;
         document.getElementById("tr").innerHTML = "Total Rent For the period: " + rt;
+        document.getElementById("ico").innerHTML = i + "%";
     }
     if (localStorage["c"]) {
         c = localStorage["c"];
@@ -69,10 +87,11 @@ function efr() {
     document.getElementById("r").innerHTML = ""
     ar = par;
     er = per;
+    document.getElementById("mro").value = addCoama(r);
     if (t != 0) {
-        document.getElementById("r").innerHTML += "Effective Rent: " + er;
+        document.getElementById("r").innerHTML += "<br>Effective Rent: " + addCoama(er);
     }
-    document.getElementById("r").innerHTML += "<br>Annual Rent: " + ar;
+    document.getElementById("r").innerHTML += "<br>Annual Rent: " + addCoama(ar);
     localStorage["mr"] = r;
     localStorage["tx"] = t;
     localStorage["er"] = er;
@@ -109,6 +128,7 @@ function tr(a) {
     const tr = FV(i, y, ar);
     localStorage["tr"] = tr;
     document.getElementById("tr").innerHTML = "";
+    document.getElementById("ico").innerHTML = i + "%";
     document.getElementById("tr").innerHTML = "Total Rent For the period: " + tr;
     la();
     hrc(1);
