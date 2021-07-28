@@ -111,7 +111,7 @@ function tr(a) {
     document.getElementById("tr").innerHTML = "";
     document.getElementById("tr").innerHTML = "Total Rent For the period: " + tr;
     la();
-    interest(1);
+    hrc(1);
 }
 
 function la() {
