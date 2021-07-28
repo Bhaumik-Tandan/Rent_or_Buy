@@ -125,7 +125,7 @@ function la() {
     dpp = pdpp;
     localStorage["c"] = c;
     localStorage["dpp"] = dpp;
-    const dpa = c - c * (1 - dpp / 100.0)
+    dpa = c - c * (1 - dpp / 100.0)
     localStorage["dpa"] = dpa;
     document.getElementById("da").innerHTML = "Downpayment amount: " + dpa + "<br>Loan amount: " + (c - dpa);
     interest(1);
